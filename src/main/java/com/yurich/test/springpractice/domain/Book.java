@@ -1,6 +1,7 @@
 package com.yurich.test.springpractice.domain;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -22,6 +23,10 @@ public class Book {
     private Set<Author> authors;
 
     public Book() {
+    }
+
+    public Book(String name, String isbn) {
+        this(name, isbn, new HashSet<>());
     }
 
     public Book(String title, String isbn, Set<Author> authors) {
@@ -79,11 +84,11 @@ public class Book {
 
         Book book = (Book) o;
 
-        return id.equals(book.id);
+        return id != null ? id.equals(book.id) : book.id == null;
     }
 
     @Override
     public int hashCode() {
-        return id.hashCode();
+        return id != null ? id.hashCode() : 0;
     }
 }
