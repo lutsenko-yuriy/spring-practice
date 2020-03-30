@@ -2,6 +2,7 @@ package com.yurich.test.springpractice.domain;
 
 import javax.persistence.*;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
@@ -22,17 +23,28 @@ public class Book {
     )
     private Set<Author> authors;
 
+    @ManyToOne
+    @JoinColumn(
+            name = "publisher_id"
+    )
+    private Publisher publisher;
+
     public Book() {
     }
 
-    public Book(String name, String isbn) {
-        this(name, isbn, new HashSet<>());
+    public Book(String title, String isbn) {
+        this(title, isbn, null);
     }
 
-    public Book(String title, String isbn, Set<Author> authors) {
+    public Book(String title, String isbn, Publisher publisher) {
+        this(title, isbn, new HashSet<>(), publisher);
+    }
+
+    public Book(String title, String isbn, Set<Author> authors, Publisher publisher) {
         this.title = title;
         this.isbn = isbn;
         this.authors = authors;
+        this.publisher = publisher;
     }
 
     public Long getId() {
@@ -67,6 +79,14 @@ public class Book {
         this.authors = authors;
     }
 
+    public Publisher getPublisher() {
+        return publisher;
+    }
+
+    public void setPublisher(Publisher publisher) {
+        this.publisher = publisher;
+    }
+
     @Override
     public String toString() {
         return "Book{" +
@@ -84,7 +104,7 @@ public class Book {
 
         Book book = (Book) o;
 
-        return id != null ? id.equals(book.id) : book.id == null;
+        return Objects.equals(id, book.id);
     }
 
     @Override
