@@ -103,7 +103,6 @@ public class Publisher {
                 ", state='" + state + '\'' +
                 ", city='" + city + '\'' +
                 ", postalCode='" + postalCode + '\'' +
-                ", publishedBooks=" + publishedBooks +
                 '}';
     }
 
